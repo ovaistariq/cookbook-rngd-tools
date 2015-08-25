@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: rng-tools
+# Cookbook Name:: rngd-tools
 # Recipe:: default
 #
 # Copyright 2011, Joshua Timberman

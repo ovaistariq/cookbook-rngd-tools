@@ -1,5 +1,6 @@
 ## v1.2.0:
 
+* Rename cookbook to rngd-tools
 * Add RHEL/CentOS 7 Support
 * Add Debian 7 and 8 Support
 * Add Ubuntu 12 and 14 Support
