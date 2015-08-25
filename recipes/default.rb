@@ -30,15 +30,15 @@ when "fedora", "rhel"
     notifies :restart, "service[rng-tools]", :immediately
   end
 
-  if node["platform"] != "amazon" and node["platform_version"].to_f >= 7.0
-    template "/etc/systemd/system/rngd.service" do
-      source "rngd.service.erb"
-      owner "root"
-      group "root"
-      mode "0644"
-      notifies :run, "bash[reload-systemd-daemon]", :immediately
-      notifies :restart, "service[rng-tools]", :immediately
-    end
+  template "/etc/systemd/system/rngd.service" do
+    source "rngd.service.erb"
+    owner "root"
+    group "root"
+    mode "0644"
+    notifies :run, "bash[reload-systemd-daemon]", :immediately
+    notifies :restart, "service[rng-tools]", :immediately
+    only_if { node["platform_version"].to_f >= 7.0 }
+    only_if { node["platform"] != "amazon" }
   end
 else
   template "/etc/default/rng-tools" do
