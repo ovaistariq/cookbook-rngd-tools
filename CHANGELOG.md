@@ -1,3 +1,7 @@
+## v1.3.0:
+
+* Add RHEL/CentOS 5 Support
+
 ## v1.2.0:
 
 * Rename cookbook to rngd-tools

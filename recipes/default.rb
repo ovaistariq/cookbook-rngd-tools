@@ -18,7 +18,7 @@
 # limitations under the License.
 #
 
-package "rng-tools"
+package node['rng_tools']['package']
 
 case node['platform_family']
 when "fedora", "rhel"
@@ -27,11 +27,11 @@ when "fedora", "rhel"
     mode 0644
     owner "root"
     group "root"
-    notifies :restart, "service[rng-tools]", :immediately
+    notifies :restart, "service[rng-tools]"
   end
 
   template "/etc/systemd/system/rngd.service" do
-    source "rngd.service.erb"
+    source "systemd/rngd.service.erb"
     owner "root"
     group "root"
     mode "0644"
@@ -40,13 +40,23 @@ when "fedora", "rhel"
     only_if { node["platform_version"].to_f >= 7.0 }
     only_if { node["platform"] != "amazon" }
   end
+
+  template "/etc/init.d/rngd" do
+    source "sysvinit/rngd.service.erb"
+    owner "root"
+    group "root"
+    mode "0755"
+    notifies :restart, "service[rng-tools]"
+    only_if { node["platform_version"].to_f < 6.0 }
+    only_if { node["platform"] != "amazon" }
+  end
 else
   template "/etc/default/rng-tools" do
     source "rng-tools.default.erb"
     mode 0644
     owner "root"
     group "root"
-    notifies :restart, "service[rng-tools]", :immediately
+    notifies :restart, "service[rng-tools]"
   end
 end
 

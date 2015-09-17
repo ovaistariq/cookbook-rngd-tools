@@ -7,11 +7,12 @@ Requirements
 ============
 
 Following platforms have been tested:
-* CentOS 6.6
-* CentOS 7.1
+* CentOS 5
+* CentOS 6
+* CentOS 7
 * Fedora 20
-* Debian 7.8
-* Debian 8.1
+* Debian 7
+* Debian 8
 * Ubuntu 10.04
 * Ubuntu 12.04
 * Ubuntu 14.04
