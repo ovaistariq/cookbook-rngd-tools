@@ -1,3 +1,9 @@
+## v2.0.0:
+
+* Added support for an array of sources (requires an attribute to be `true`)
+* Added support to use hwrng (from intel cpus, also requires an attribute to be set to `true`)
+   * hwrng only tested in vsphere and aws with CentOS 7.x
+
 ## v1.3.0:
 
 * Add RHEL/CentOS 5 Support

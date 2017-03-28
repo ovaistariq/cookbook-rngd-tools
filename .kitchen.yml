@@ -1,15 +1,16 @@
 ---
 driver:
   name: vagrant
+  cache_directory: false
   vagrantfile_erb: Vagrantfile.erb
 
 provisioner:
   name: chef_zero
 
 platforms:
-  - name: centos-5.11
-  - name: centos-6.6
-  - name: centos-7.0
+  - name: centos5
+  - name: centos6
+  - name: centos7
   - name: fedora-20
   - name: debian-7.8
   - name: debian-8.1
@@ -20,7 +21,19 @@ platforms:
   - name: ubuntu-14.04
 
 suites:
-
   - name: default
     run_list:
       - recipe[rngd-tools::default]
+  - name: hwrng
+    run_list:
+      - recipe[rngd-tools::default]
+    attributes:
+      rng-tools:
+        use_hwrng: true
+  - name: dynamic_no_hwrng
+    run_list:
+      - recipe[rngd-tools::default]
+    attributes:
+      rng-tools:
+        use_hwrng: false
+        dynamic: true

@@ -4,6 +4,7 @@
 #
 # Copyright 2011, Joshua Timberman
 # Copyright 2015, Ovais Tariq
+# Copyright 2017, Wade Peacock
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -39,7 +40,15 @@ when "fedora", "rhel"
     notifies :restart, "service[rng-tools]", :immediately
     only_if { node["platform_version"].to_f >= 7.0 }
     only_if { node["platform"] != "amazon" }
+    not_if { node['rng_tools']['use_hwrng'] && hwrng? }
   end
+
+  file '/etc/systemd/system/rngd.service' do
+    action :delete
+    notifies :run, "bash[reload-systemd-daemon]", :immediately
+    notifies :restart, "service[rng-tools]", :immediately
+    only_if { node['rng_tools']['use_hwrng'] && hwrng? }
+  end 
 
   template "/etc/init.d/rngd" do
     source "sysvinit/rngd.service.erb"
